@@ -34,5 +34,10 @@ htmlcov/
 Thumbs.db
 
 # Generated results
-vibediff_results.csv
+choosie_results.csv
 *.results.csv
+
+# PyPI credentials & build artifacts
+.pypirc
+.ipypirc
+dist/

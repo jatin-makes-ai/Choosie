@@ -1,5 +1,5 @@
 """
-VibeDiff Gradio Battleground UI — v2 (Blind Evaluation)
+Choosie Gradio Battleground UI — v2 (Blind Evaluation)
 
 Key principles:
   - Model names and prompts are HIDDEN from the evaluator (blind testing).
@@ -21,7 +21,7 @@ import string
 from typing import Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from vibediff.core.competitor import Competitor
+    from choosie.core.competitor import Competitor
 
 logger = logging.getLogger(__name__)
 
@@ -32,13 +32,13 @@ _LABELS = list(string.ascii_uppercase)  # A, B, C, D, ...
 def launch_arena_ui(
     competitors: list["Competitor"],
     mode: int = 1,
-    csv_path: str = "vibediff_results.csv",
+    csv_path: str = "choosie_results.csv",
     share: bool = False,
     description: str = "",
     **kwargs: Any,
 ) -> None:
     """
-    Launch the full VibeDiff battleground as a persistent Gradio app.
+    Launch the full choosie battleground as a persistent Gradio app.
 
     The UI runs in a continuous loop:
       1. User types a query.
@@ -62,9 +62,9 @@ def launch_arena_ui(
             "Gradio is required for the UI. Install with: pip install gradio"
         ) from exc
 
-    from vibediff.core.battle import BattleMode, BattleResult
-    from vibediff.analytics.leaderboard import Leaderboard
-    from vibediff.storage.csv_store import CSVStore
+    from choosie.core.battle import BattleMode, BattleResult
+    from choosie.analytics.leaderboard import Leaderboard
+    from choosie.storage.csv_store import CSVStore
 
     battle_mode = BattleMode.from_value(mode)
     store = CSVStore(csv_path)
@@ -95,18 +95,18 @@ def _build_pick_best_app(
     share=False, **kwargs,
 ):
     import gradio as gr
-    from vibediff.core.battle import BattleMode, BattleResult
+    from choosie.core.battle import BattleMode, BattleResult
 
     n = len(competitors)
 
+    _theme = gr.themes.Base(
+        primary_hue="violet",
+        neutral_hue="slate",
+        font=["Inter", "ui-sans-serif"],
+    )
+
     with gr.Blocks(
-        title="⚔️ VibeDiff Battleground",
-        css=custom_css,
-        theme=gr.themes.Base(
-            primary_hue="violet",
-            neutral_hue="slate",
-            font=["Inter", "ui-sans-serif"],
-        ),
+        title="⚔️ choosie Battleground",
     ) as demo:
 
         # ── Header ────────────────────────────────────────────────────────
@@ -233,7 +233,7 @@ def _build_pick_best_app(
                 except Exception as e:
                     logger.exception("Competitor %s failed", comp.name)
                     # Create a dummy result for failed competitors
-                    from vibediff.core.competitor import CompetitorResult
+                    from choosie.core.competitor import CompetitorResult
                     results.append(CompetitorResult(
                         competitor=comp,
                         rendered_prompt=comp.render_prompt({"query": query}),
@@ -346,13 +346,13 @@ def _build_pick_best_app(
             outputs=[leaderboard_display],
         )
 
-    demo.launch(share=share, **kwargs)
+    demo.launch(share=share, css=custom_css, theme=_theme, **kwargs)
 
 
 def _finalize_pick_best(state, comment, rd_count, competitors, labels, store, leaderboard):
     """Save the pick-best result to CSV + leaderboard and reset the UI for next round."""
     import gradio as gr
-    from vibediff.core.battle import BattleMode, BattleResult
+    from choosie.core.battle import BattleMode, BattleResult
 
     if not state or "winner_index" not in state:
         return (
@@ -406,18 +406,18 @@ def _build_thumbs_app(
     share=False, **kwargs,
 ):
     import gradio as gr
-    from vibediff.core.battle import BattleMode, BattleResult
+    from choosie.core.battle import BattleMode, BattleResult
 
     n = len(competitors)
 
+    _theme = gr.themes.Base(
+        primary_hue="violet",
+        neutral_hue="slate",
+        font=["Inter", "ui-sans-serif"],
+    )
+
     with gr.Blocks(
-        title="⚔️ VibeDiff Battleground",
-        css=custom_css,
-        theme=gr.themes.Base(
-            primary_hue="violet",
-            neutral_hue="slate",
-            font=["Inter", "ui-sans-serif"],
-        ),
+        title="⚔️ Choosie Battleground",
     ) as demo:
 
         gr.HTML(_render_header_html(
@@ -534,7 +534,7 @@ def _build_thumbs_app(
                     results.append(comp.run({"query": query}))
                 except Exception as e:
                     logger.exception("Competitor %s failed", comp.name)
-                    from vibediff.core.competitor import CompetitorResult
+                    from choosie.core.competitor import CompetitorResult
                     results.append(CompetitorResult(
                         competitor=comp,
                         rendered_prompt=comp.render_prompt({"query": query}),
@@ -641,13 +641,13 @@ def _build_thumbs_app(
             outputs=[leaderboard_display],
         )
 
-    demo.launch(share=share, **kwargs)
+    demo.launch(share=share, css=custom_css, theme=_theme, **kwargs)
 
 
 def _finalize_thumbs(state, comment, rd_count, competitors, labels, store, leaderboard):
     """Save thumbs votes and reset."""
     import gradio as gr
-    from vibediff.core.battle import BattleMode, BattleResult
+    from choosie.core.battle import BattleMode, BattleResult
 
     if not state or "results" not in state:
         return (
@@ -693,7 +693,7 @@ def _finalize_thumbs(state, comment, rd_count, competitors, labels, store, leade
 def _render_header_html(title: str, description: str, n_competitors: int) -> str:
     return f"""
 <div class="vd-header">
-  <h1>⚔️ VibeDiff Battleground</h1>
+  <h1>⚔️ Choosie Battleground</h1>
   <p class="vd-subtitle">{title} &nbsp;·&nbsp; {n_competitors} Competitors</p>
   <p class="vd-description">{description}</p>
 </div>
@@ -724,7 +724,7 @@ def _get_leaderboard_df_thumbs(leaderboard):
 
 def _build_css(n_competitors: int) -> str:
     return """
-/* ── VibeDiff Battleground Styles ──────────────────────────────────────── */
+/* ── choosie Battleground Styles ──────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
@@ -946,5 +946,5 @@ def launch_battle_ui(battle, share=False, **kwargs):
 
 
 def launch_ui():
-    """Placeholder for standalone UI launch (used by vibediff.ui module)."""
+    """Placeholder for standalone UI launch (used by choosie.ui module)."""
     pass

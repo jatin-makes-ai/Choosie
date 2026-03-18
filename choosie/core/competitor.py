@@ -43,7 +43,7 @@ _JINJA_ENV = Environment(
 @dataclass
 class Competitor:
     """
-    Represents one contestant in a VibeDiff arena.
+    Represents one contestant in a Choosie arena.
 
     Args:
         provider:    LiteLLM provider prefix, e.g. "openai", "anthropic", "groq".

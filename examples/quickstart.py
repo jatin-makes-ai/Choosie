@@ -10,7 +10,7 @@ Then run:
   python examples/quickstart.py
 """
 
-from vibediff import Arena, Competitor
+from choosie import Arena, Competitor
 
 # ── Define your competitors ───────────────────────────────────────────────────
 # The user in the UI will NOT see these names or prompts — only "Response A", "Response B", etc.
@@ -41,7 +41,7 @@ c2 = Competitor(
 
 arena = Arena(
     competitors=[c1, c2],
-    csv_path="vibediff_results.csv",  # All results saved here automatically
+    csv_path="choosie_results.csv",  # All results saved here automatically
 )
 
 # Mode 1: Pick the Best (side-by-side, blind)

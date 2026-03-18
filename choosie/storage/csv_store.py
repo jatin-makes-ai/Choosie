@@ -1,5 +1,5 @@
 """
-CSV-backed persistence for VibeDiff battle results.
+CSV-backed persistence for choosie battle results.
 
 Each battle round is written as one row per competitor to a local CSV file,
 capturing the response, vote, winner status, timing, and user comments —
@@ -16,11 +16,11 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from vibediff.core.battle import BattleResult
+    from choosie.core.battle import BattleResult
 
 logger = logging.getLogger(__name__)
 
-_DEFAULT_PATH = "vibediff_results.csv"
+_DEFAULT_PATH = "choosie_results.csv"
 
 _FIELDNAMES = [
     "battle_id",

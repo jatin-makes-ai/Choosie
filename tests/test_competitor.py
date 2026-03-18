@@ -1,7 +1,7 @@
 """Tests for the Competitor class."""
 import pytest
 from unittest.mock import MagicMock, patch
-from vibediff.core.competitor import Competitor, CompetitorResult
+from choosie.core.competitor import Competitor, CompetitorResult
 
 
 def make_competitor(**kwargs):
@@ -55,7 +55,7 @@ class TestPromptRendering:
 
 
 class TestCompetitorRun:
-    @patch("vibediff.core.competitor.litellm_completion")
+    @patch("choosie.core.competitor.litellm_completion")
     def test_run_returns_result(self, mock_completion):
         mock_response = MagicMock()
         mock_response.choices[0].message.content = "Hello, Alice!"
@@ -69,7 +69,7 @@ class TestCompetitorRun:
         assert result.rendered_prompt == "Say hello to Alice"
         assert result.competitor is c
 
-    @patch("vibediff.core.competitor.litellm_completion")
+    @patch("choosie.core.competitor.litellm_completion")
     def test_run_uses_correct_model_string(self, mock_completion):
         mock_response = MagicMock()
         mock_response.choices[0].message.content = "hi"
@@ -81,7 +81,7 @@ class TestCompetitorRun:
         call_kwargs = mock_completion.call_args
         assert call_kwargs[1]["model"] == "anthropic/claude-3-5-sonnet-20241022"
 
-    @patch("vibediff.core.competitor.litellm_completion")
+    @patch("choosie.core.competitor.litellm_completion")
     def test_run_without_provider_prefix(self, mock_completion):
         mock_response = MagicMock()
         mock_response.choices[0].message.content = "hi"

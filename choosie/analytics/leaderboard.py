@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from vibediff.core.battle import BattleMode, BattleResult
+    from choosie.core.battle import BattleMode, BattleResult
 
 _DEFAULT_ELO = 1000
 _K_FACTOR = 32  # Standard ELO K-factor; tune higher for faster convergence
@@ -91,7 +91,7 @@ class Leaderboard:
 
     def record(self, battle: "BattleResult") -> None:
         """Ingest a completed BattleResult and update internal stats."""
-        from vibediff.core.battle import BattleMode
+        from choosie.core.battle import BattleMode
 
         for r in battle.results:
             self._ensure(r.competitor)
@@ -177,7 +177,7 @@ class Leaderboard:
 
         header = f"{'Rank':<5} {'Name':<30} {'ELO':>6} {'W':>4} {'L':>4} {'D':>4} {'Win%':>7} {'👍':>5} {'👎':>5}"
         print("\n" + "=" * len(header))
-        print("  VibeDiff Leaderboard")
+        print("  Choosie Leaderboard")
         print("=" * len(header))
         print(header)
         print("-" * len(header))

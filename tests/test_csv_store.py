@@ -3,9 +3,9 @@ import os
 import pytest
 import tempfile
 from unittest.mock import MagicMock
-from vibediff.storage.csv_store import CSVStore
-from vibediff.core.battle import BattleMode, BattleResult
-from vibediff.core.competitor import Competitor, CompetitorResult
+from choosie.storage.csv_store import CSVStore
+from choosie.core.battle import BattleMode, BattleResult
+from choosie.core.competitor import Competitor, CompetitorResult
 
 
 def make_competitor(name="A"):

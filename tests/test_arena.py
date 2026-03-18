@@ -1,9 +1,9 @@
 """Tests for the Arena class."""
 import pytest
 from unittest.mock import MagicMock, patch
-from vibediff.core.arena import Arena
-from vibediff.core.battle import BattleMode, BattleResult
-from vibediff.core.competitor import Competitor, CompetitorResult
+from choosie.core.arena import Arena
+from choosie.core.battle import BattleMode, BattleResult
+from choosie.core.competitor import Competitor, CompetitorResult
 
 
 def make_mock_result(competitor, response="mock response"):
@@ -32,7 +32,7 @@ class TestArenaInit:
     def test_csv_path_default(self):
         c = make_competitor()
         arena = Arena(competitors=[c])
-        assert arena.csv_path == "vibediff_results.csv"
+        assert arena.csv_path == "choosie_results.csv"
 
     def test_csv_path_custom(self):
         c = make_competitor()
@@ -73,7 +73,7 @@ class TestArenaBattle:
 
         callback.assert_called_once()
 
-    @patch("vibediff.ui.app.launch_arena_ui")
+    @patch("choosie.ui.app.launch_arena_ui")
     def test_ui_mode_calls_launch(self, mock_ui):
         c1, c2 = make_competitor("A"), make_competitor("B")
         arena = Arena(competitors=[c1, c2])
@@ -82,7 +82,7 @@ class TestArenaBattle:
         mock_ui.assert_called_once()
         assert result is None  # UI mode returns None
 
-    @patch("vibediff.ui.app.launch_arena_ui")
+    @patch("choosie.ui.app.launch_arena_ui")
     def test_ui_mode_passes_csv_path(self, mock_ui):
         c1 = make_competitor("A")
         arena = Arena(competitors=[c1], csv_path="my_results.csv")

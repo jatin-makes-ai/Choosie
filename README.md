@@ -1,8 +1,8 @@
-# ⚔️ VibeDiff
+# ⚔️ Choosie
 
 > **Battle-test your prompts. Ship the best one.**
 
-VibeDiff is an open-source Python library for comparing LLM prompts and models head-to-head. Define competitors, launch an arena, and let a beautiful evaluation UI (or your own logic) pick the winner — with a live ELO leaderboard tracking performance across every battle.
+Choosie is an open-source Python library for comparing LLM prompts and models head-to-head. Define competitors, launch an arena, and let a beautiful evaluation UI (or your own logic) pick the winner — with a live ELO leaderboard tracking performance across every battle.
 
 [![PyPI - Python Version](https://img.shields.io/badge/python-3.10%2B-blue)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)]()
@@ -28,13 +28,13 @@ VibeDiff is an open-source Python library for comparing LLM prompts and models h
 ### Install
 
 ```bash
-pip install vibediff
+pip install choosie
 ```
 
 ### Run a battle
 
 ```python
-from vibediff import Competitor, Arena, BattleMode
+from choosie import Competitor, Arena, BattleMode
 
 c1 = Competitor(
     provider="openai",
@@ -107,14 +107,14 @@ arena.history        # List of all BattleResult objects
 lb = arena.leaderboard()
 lb.display()        # Pretty-print to stdout
 lb.to_dict()        # List of dicts
-lb.to_dataframe()   # pandas DataFrame (requires: pip install vibediff[analytics])
+lb.to_dataframe()   # pandas DataFrame (requires: pip install choosie[analytics])
 ```
 
 ---
 
 ## 🔑 API Keys
 
-VibeDiff uses LiteLLM, which reads API keys from environment variables:
+Choosie uses LiteLLM, which reads API keys from environment variables:
 
 ```powershell
 $env:OPENAI_API_KEY = "sk-..."

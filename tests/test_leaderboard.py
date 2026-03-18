@@ -1,8 +1,8 @@
 """Tests for the Leaderboard and ELO system."""
 import pytest
-from vibediff.analytics.leaderboard import Leaderboard, _elo_update
-from vibediff.core.battle import BattleMode, BattleResult
-from vibediff.core.competitor import Competitor, CompetitorResult
+from choosie.analytics.leaderboard import Leaderboard, _elo_update
+from choosie.core.battle import BattleMode, BattleResult
+from choosie.core.competitor import Competitor, CompetitorResult
 from unittest.mock import MagicMock
 
 

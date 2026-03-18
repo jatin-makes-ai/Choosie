@@ -12,8 +12,8 @@ import concurrent.futures
 import logging
 from typing import Any
 
-from vibediff.core.battle import BattleMode, BattleResult
-from vibediff.core.competitor import Competitor, CompetitorResult
+from choosie.core.battle import BattleMode, BattleResult
+from choosie.core.competitor import Competitor, CompetitorResult
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ class Arena:
         parallel:     If True (default), runs all competitors concurrently.
         max_workers:  Thread pool size for parallel execution (default: len(competitors)).
         on_result:    Optional callback(BattleResult) called after each battle completes.
-        csv_path:     Path to save battle results to CSV (default: "vibediff_results.csv").
+        csv_path:     Path to save battle results to CSV (default: "choosie_results.csv").
 
     Example:
         arena = Arena(competitors=[c1, c2])
@@ -40,7 +40,7 @@ class Arena:
         parallel: bool = True,
         max_workers: int | None = None,
         on_result: Any = None,
-        csv_path: str = "vibediff_results.csv",
+        csv_path: str = "choosie_results.csv",
     ) -> None:
         if len(competitors) < 1:
             raise ValueError("Arena requires at least one competitor.")
@@ -97,7 +97,7 @@ class Arena:
 
         # ── Interactive UI mode ──────────────────────────────────────────
         if launch_ui:
-            from vibediff.ui.app import launch_arena_ui
+            from choosie.ui.app import launch_arena_ui
 
             launch_arena_ui(
                 competitors=self.competitors,
@@ -130,7 +130,7 @@ class Arena:
 
     def leaderboard(self):
         """Return a live Leaderboard computed from this Arena's battle history."""
-        from vibediff.analytics.leaderboard import Leaderboard
+        from choosie.analytics.leaderboard import Leaderboard
 
         return Leaderboard.from_history(self._history)
 
