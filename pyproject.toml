@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vibediff"
+version = "0.1.0"
+description = "Battle-test your prompts and models. Ship the best one."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "VibeDiff Contributors" }]
+keywords = ["llm", "prompt", "evaluation", "benchmarking", "ai", "agents"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+  "litellm>=1.30.0",       # Universal LLM gateway (OpenAI, Anthropic, Groq, etc.)
+  "gradio>=4.20.0",         # Battleground UI
+  "jinja2>=3.1.0",          # Prompt templating
+]
+
+[project.optional-dependencies]
+analytics = [
+  "pandas>=2.0.0",          # DataFrame export from leaderboard
+]
+dev = [
+  "pytest>=8.0.0",
+  "pytest-cov",
+  "ruff",
+  "mypy",
+]
+
+[project.urls]
+Homepage = "https://github.com/vibediff/vibediff"
+Repository = "https://github.com/vibediff/vibediff"
+"Bug Tracker" = "https://github.com/vibediff/vibediff/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["vibediff*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
